@@ -1,0 +1,1 @@
+- [Demo commerce honesty](demo-commerce-honesty.md) — Keep checkout visibly simulated and never collect payment details until a real provider is integrated.

@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Saif Online Store"
+description = "A premium electronics storefront imported from the user's GitHub project, with product browsing, filtering, cart, configuration, and checkout flows."
+version = "1.0.0"
+id = "artifacts/saif-online-store"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24823
+
+[services.development]
+run = "pnpm --filter @workspace/saif-online-store run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/saif-online-store", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/saif-online-store/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24823"
+BASE_PATH = "/"
