@@ -161,6 +161,9 @@ importers:
       '@replit/connectors-sdk':
         specifier: ^0.4.3
         version: 0.4.3
+      pg:
+        specifier: ^8.23.0
+        version: 8.23.0
     devDependencies:
       prettier:
         specifier: ^3.9.6

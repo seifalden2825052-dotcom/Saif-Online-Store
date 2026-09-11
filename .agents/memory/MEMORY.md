@@ -1,1 +1,2 @@
 - [Demo commerce honesty](demo-commerce-honesty.md) — Keep checkout visibly simulated and never collect payment details until a real provider is integrated.
+- [GitHub/Vercel source alignment](github-vercel-source-sync.md) — Vercel deploys the connected GitHub branch, which can diverge from the working Replit checkout.

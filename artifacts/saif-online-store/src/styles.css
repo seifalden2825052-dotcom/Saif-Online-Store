@@ -165,3 +165,314 @@
     font-family: var(--font-serif);
   }
 }
+
+@layer components {
+  .admin-shell {
+    min-height: 100dvh;
+    padding: 2rem clamp(1.25rem, 4vw, 4.5rem);
+    background:
+      radial-gradient(circle at 80% 0%, color-mix(in oklab, var(--neon) 12%, transparent), transparent 32rem),
+      var(--bg);
+    color: var(--ink);
+  }
+
+  .admin-brand {
+    display: inline-flex;
+    gap: 0.55rem;
+    align-items: baseline;
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-decoration: none;
+  }
+
+  .admin-brand span {
+    color: var(--muted);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+  }
+
+  .admin-auth-card,
+  .admin-dashboard {
+    width: min(100%, 68rem);
+    margin: clamp(4rem, 12vh, 8rem) auto 4rem;
+  }
+
+  .admin-auth-card {
+    max-width: 31rem;
+    padding: clamp(1.5rem, 5vw, 3.5rem);
+    border: 1px solid var(--line);
+    border-radius: 1.75rem;
+    background: color-mix(in oklab, var(--surface) 88%, transparent);
+    box-shadow: 0 2rem 5rem color-mix(in oklab, var(--ink) 12%, transparent);
+  }
+
+  .admin-kicker,
+  .admin-status-line,
+  .admin-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--neon);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .admin-auth-card h1,
+  .admin-dashboard h1 {
+    margin: 1rem 0 0.75rem;
+    font-family: var(--font-serif);
+    font-size: clamp(2.8rem, 6vw, 5.6rem);
+    font-weight: 400;
+    letter-spacing: -0.07em;
+    line-height: 0.95;
+  }
+
+  .admin-lede,
+  .admin-dashboard-header p,
+  .admin-panel p,
+  .admin-footnote {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .admin-form {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .admin-form label {
+    display: grid;
+    gap: 0.45rem;
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .admin-form input {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    padding: 0.85rem 1rem;
+    background: var(--bg);
+    color: var(--ink);
+    font: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+    outline: none;
+  }
+
+  .admin-form input:focus {
+    border-color: var(--neon);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--neon) 18%, transparent);
+  }
+
+  .admin-primary-button,
+  .admin-ghost-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.85rem 1.2rem;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .admin-primary-button {
+    margin-top: 0.5rem;
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .admin-primary-button:disabled {
+    cursor: wait;
+    opacity: 0.55;
+  }
+
+  .admin-ghost-button {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .admin-demo-note {
+    display: grid;
+    gap: 0.25rem;
+    margin-top: 2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .admin-demo-note strong {
+    color: var(--ink);
+  }
+
+  .admin-error {
+    margin: 0.5rem 0;
+    color: #c45a4a;
+    font-size: 0.8rem;
+  }
+
+  .admin-dashboard-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .admin-dashboard-header h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .admin-dashboard-header p {
+    margin: 0;
+  }
+
+  .admin-status-line {
+    margin-top: 2rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .admin-status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #6d9b77;
+    box-shadow: 0 0 0 0.3rem color-mix(in oklab, #6d9b77 16%, transparent);
+  }
+
+  .admin-cards,
+  .admin-panel-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .admin-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin-panel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 2rem;
+  }
+
+  .admin-metric-card,
+  .admin-panel {
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+    background: color-mix(in oklab, var(--surface) 84%, transparent);
+  }
+
+  .admin-metric-card {
+    display: grid;
+    gap: 0.75rem;
+    min-height: 8rem;
+    padding: 1.25rem;
+  }
+
+  .admin-metric-card span,
+  .admin-panel-eyebrow {
+    color: var(--muted);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .admin-metric-card strong {
+    align-self: end;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .admin-metric-card.copper strong {
+    color: var(--neon);
+  }
+
+  .admin-metric-card.green strong {
+    color: #6d9b77;
+  }
+
+  .admin-panel {
+    min-height: 15rem;
+    padding: 1.5rem;
+  }
+
+  .admin-panel-icon {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: 0.75rem;
+    background: color-mix(in oklab, var(--neon) 15%, transparent);
+    color: var(--neon);
+  }
+
+  .admin-panel h2 {
+    margin: 1.2rem 0 0.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+  }
+
+  .admin-check {
+    margin-top: 1.4rem;
+    color: #6d9b77;
+    letter-spacing: 0.08em;
+  }
+
+  .admin-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.25rem;
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .admin-footnote {
+    max-width: 45rem;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .admin-loading {
+    margin: 15vh auto;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .admin-dashboard-header,
+    .admin-panel-grid,
+    .admin-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .admin-dashboard-header {
+      display: grid;
+      align-items: start;
+    }
+
+    .admin-dashboard-header .admin-ghost-button {
+      justify-self: start;
+    }
+  }
+}

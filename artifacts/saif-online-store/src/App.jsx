@@ -8,9 +8,14 @@ import CartDrawer from "./components/CartDrawer";
 import CheckoutModal from "./components/CheckoutModal";
 import ProductConfigurator from "./components/ProductConfigurator";
 import SearchOverlay from "./components/SearchOverlay";
+import AdminPage from "./components/AdminPage";
 import { useThemeSync } from "./store/theme";
 
 export default function App() {
+  if (window.location.pathname.startsWith("/admin")) {
+    return <AdminPage />;
+  }
+
   useThemeSync();
 
   return (
