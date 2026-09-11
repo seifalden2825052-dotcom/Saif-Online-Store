@@ -63,38 +63,38 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --background: oklch(0.975 0.018 88);
+  --foreground: oklch(0.24 0.026 42);
+  --card: oklch(0.99 0.01 88);
+  --card-foreground: oklch(0.24 0.026 42);
+  --popover: oklch(0.99 0.01 88);
+  --popover-foreground: oklch(0.24 0.026 42);
+  --primary: oklch(0.52 0.16 38);
+  --primary-foreground: oklch(0.985 0.01 88);
+  --secondary: oklch(0.935 0.025 82);
+  --secondary-foreground: oklch(0.28 0.04 42);
+  --muted: oklch(0.935 0.025 82);
+  --muted-foreground: oklch(0.52 0.035 48);
+  --accent: oklch(0.91 0.055 78);
+  --accent-foreground: oklch(0.28 0.04 42);
+  --destructive: oklch(0.58 0.2 28);
+  --destructive-foreground: oklch(0.985 0.01 88);
+  --border: oklch(0.86 0.035 78);
+  --input: oklch(0.86 0.035 78);
+  --ring: oklch(0.62 0.13 38);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --sidebar: oklch(0.955 0.02 86);
+  --sidebar-foreground: oklch(0.24 0.026 42);
+  --sidebar-primary: oklch(0.52 0.16 38);
+  --sidebar-primary-foreground: oklch(0.985 0.01 88);
+  --sidebar-accent: oklch(0.91 0.055 78);
+  --sidebar-accent-foreground: oklch(0.28 0.04 42);
+  --sidebar-border: oklch(0.86 0.035 78);
+  --sidebar-ring: oklch(0.62 0.13 38);
 }
 
 .dark {
@@ -133,20 +133,20 @@
 }
 
 /* ── AUREN brand surface tokens ────────────────────────────────────────────
- * Light  = Apple-like: white/silver surfaces, black ink, soft shadows.
- * Dark   = Nothing-like: obsidian black, grid lines, neon accent.
+ * Light = warm paper, copper accent, editorial contrast.
+ * Dark  = obsidian surfaces, warm signal accent, high-contrast type.
  */
 :root {
-  --bg: oklch(1 0 0);
-  --bg-deep: oklch(0.968 0.002 250);
-  --surface: oklch(0.985 0.002 250);
-  --ink: oklch(0.17 0.01 260);
-  --subtle: oklch(0.52 0.012 260);
-  --line: oklch(0.9 0.006 260);
-  --neon: oklch(0.53 0.19 258);
-  --grid-line: oklch(0.17 0.01 260 / 5%);
-  --shadow-soft: 0 20px 50px -24px oklch(0.17 0.01 260 / 22%);
-  --shadow-lift: 0 30px 70px -30px oklch(0.17 0.01 260 / 30%);
+  --bg: oklch(0.975 0.018 88);
+  --bg-deep: oklch(0.935 0.024 82);
+  --surface: oklch(0.99 0.01 88);
+  --ink: oklch(0.22 0.025 40);
+  --subtle: oklch(0.51 0.03 50);
+  --line: oklch(0.86 0.035 78);
+  --neon: oklch(0.55 0.17 38);
+  --grid-line: oklch(0.22 0.025 40 / 7%);
+  --shadow-soft: 0 20px 50px -24px oklch(0.22 0.025 40 / 18%);
+  --shadow-lift: 0 30px 70px -30px oklch(0.55 0.17 38 / 25%);
 }
 
 .dark {

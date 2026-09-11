@@ -13,26 +13,28 @@ export default function Footer() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.6 }}
-      className="border-t border-slate-800 bg-slate-900/30"
+      className="border-t border-line bg-surface/30"
     >
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8">
         <div>
-          <span className="text-lg font-bold tracking-tight text-slate-50">
-            AUR<span className="text-blue-500">EN</span>
+          <span className="text-lg font-bold tracking-tight text-ink">
+            AUR<span className="text-neon">EN</span>
           </span>
           <p className="mt-3 max-w-xs text-sm text-slate-400">
-            A considered collection of premium technology for sound, sight, movement and focus.
+            <span className="text-subtle">
+              A considered collection of premium technology for sound, sight, movement and focus.
+            </span>
           </p>
         </div>
         {columns.map((column) => (
           <div key={column.title}>
-            <h3 className="text-sm font-semibold text-slate-50">{column.title}</h3>
+            <h3 className="text-sm font-semibold text-ink">{column.title}</h3>
             <ul className="mt-4 space-y-2">
               {column.links.map((link) => (
                 <li key={link}>
                   <a
                     href="#shop"
-                    className="text-sm text-slate-400 transition-colors hover:text-slate-50"
+                    className="text-sm text-subtle transition-colors hover:text-ink"
                   >
                     {link}
                   </a>
@@ -42,7 +44,7 @@ export default function Footer() {
           </div>
         ))}
       </div>
-      <div className="border-t border-slate-800 px-4 py-6 text-center text-xs text-slate-500 sm:px-6 lg:px-8">
+      <div className="border-t border-line px-4 py-6 text-center text-xs text-subtle sm:px-6 lg:px-8">
          © {new Date().getFullYear()} Auren Studio · Precision technology, made more human.
       </div>
     </motion.footer>

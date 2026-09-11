@@ -65,12 +65,12 @@ export default function CheckoutModal() {
 
   const field = (name, label, props = {}) => (
     <label className="block">
-      <span className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</span>
+      <span className="text-xs font-medium uppercase tracking-wide text-subtle">{label}</span>
       <input
         {...props}
         value={form[name]}
         onChange={update(name)}
-        className="mt-1.5 w-full rounded-lg border border-slate-800 bg-slate-950/60 px-3 py-2.5 text-sm text-slate-50 outline-none transition-colors placeholder:text-slate-600 focus:border-blue-500"
+        className="mt-1.5 w-full rounded-lg border border-line bg-bg/60 px-3 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-subtle focus:border-neon"
       />
       {errors[name] && <span className="mt-1 block text-xs text-red-400">{errors[name]}</span>}
     </label>
@@ -85,7 +85,7 @@ export default function CheckoutModal() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={dismiss}
-            className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-bg/80 backdrop-blur-sm"
           />
           <motion.div
             initial={{ opacity: 0, y: 24, scale: 0.97 }}
@@ -95,12 +95,12 @@ export default function CheckoutModal() {
             role="dialog"
             aria-modal="true"
             aria-label="Checkout"
-            className="relative z-10 my-8 w-full max-w-3xl overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 backdrop-blur-md"
+            className="relative z-10 my-8 w-full max-w-3xl overflow-hidden rounded-2xl border border-line bg-surface/95 text-ink backdrop-blur-md"
           >
-            <header className="flex items-center justify-between border-b border-slate-800 px-6 py-4">
+            <header className="flex items-center justify-between border-b border-line px-6 py-4">
               <div className="flex items-center gap-2">
-                <Lock className="h-4 w-4 text-blue-500" />
-                <h2 className="text-base font-semibold text-slate-50">
+                <Lock className="h-4 w-4 text-neon" />
+                <h2 className="text-base font-semibold text-ink">
                   Secure checkout · AUREN
                 </h2>
               </div>
@@ -108,7 +108,7 @@ export default function CheckoutModal() {
                 type="button"
                 onClick={dismiss}
                 aria-label="Close checkout"
-                className="rounded-lg p-2 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-50"
+                className="rounded-lg p-2 text-subtle transition-colors hover:bg-bg-deep hover:text-ink"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -116,16 +116,16 @@ export default function CheckoutModal() {
 
             {status === "done" ? (
               <div className="flex flex-col items-center px-6 py-16 text-center">
-                <CheckCircle2 className="h-12 w-12 text-blue-500" />
-                <h3 className="mt-4 text-xl font-semibold text-slate-50">Order confirmed</h3>
-                <p className="mt-2 max-w-sm text-sm text-slate-400">
+                <CheckCircle2 className="h-12 w-12 text-neon" />
+                <h3 className="mt-4 text-xl font-semibold text-ink">Order confirmed</h3>
+                <p className="mt-2 max-w-sm text-sm text-subtle">
                   We emailed a receipt to {form.email || "your inbox"}. Your order leaves the
                   AUREN fulfillment within 24 hours.
                 </p>
                 <button
                   type="button"
                   onClick={dismiss}
-                  className="mt-6 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-500"
+                  className="mt-6 rounded-lg bg-ink px-5 py-2.5 text-sm font-semibold text-bg transition-colors hover:bg-neon hover:text-white"
                 >
                   Keep browsing
                 </button>
@@ -133,7 +133,7 @@ export default function CheckoutModal() {
             ) : (
               <div className="grid gap-8 px-6 py-6 md:grid-cols-[1.3fr_1fr]">
                 <form onSubmit={submit} className="space-y-4" noValidate>
-                  <h3 className="text-sm font-semibold text-slate-200">Contact & delivery</h3>
+                  <h3 className="text-sm font-semibold text-ink">Contact & delivery</h3>
                   {field("email", "Email", {
                     type: "email",
                     placeholder: "you@company.com",
@@ -152,7 +152,7 @@ export default function CheckoutModal() {
                     {field("zip", "Postal code", { placeholder: "1015" })}
                   </div>
 
-                  <h3 className="pt-2 text-sm font-semibold text-slate-200">Payment</h3>
+                  <h3 className="pt-2 text-sm font-semibold text-ink">Payment</h3>
                   {field("card", "Card number", {
                     placeholder: "4242 4242 4242 4242",
                     inputMode: "numeric",
@@ -165,7 +165,7 @@ export default function CheckoutModal() {
                   <button
                     type="submit"
                     disabled={status === "processing" || items.length === 0}
-                    className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-slate-800 disabled:text-slate-500"
+                    className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-ink px-4 py-3 text-sm font-semibold text-bg transition-colors hover:bg-neon hover:text-white disabled:cursor-not-allowed disabled:bg-line disabled:text-subtle"
                   >
                     {status === "processing" ? (
                       <>
@@ -177,42 +177,42 @@ export default function CheckoutModal() {
                       </>
                     )}
                   </button>
-                  <p className="text-center text-xs text-slate-500">
+                  <p className="text-center text-xs text-subtle">
                     Demo checkout — no card is charged and no data leaves this device.
                   </p>
                 </form>
 
-                <aside className="rounded-xl border border-slate-800 bg-slate-950/50 p-5">
-                  <h3 className="text-sm font-semibold text-slate-200">Order summary</h3>
+                <aside className="rounded-xl border border-line bg-bg-deep/50 p-5">
+                  <h3 className="text-sm font-semibold text-ink">Order summary</h3>
                   <ul className="mt-4 space-y-3">
                     {items.map((item) => (
                       <li key={item.id} className="flex justify-between gap-3 text-sm">
-                        <span className="text-slate-300">
+                        <span className="text-subtle">
                           {item.name}
-                          <span className="text-slate-500"> × {item.quantity}</span>
+                          <span className="text-subtle/70"> × {item.quantity}</span>
                         </span>
-                        <span className="whitespace-nowrap text-slate-100">
+                        <span className="whitespace-nowrap text-ink">
                           {formatPrice(item.price * item.quantity)}
                         </span>
                       </li>
                     ))}
                   </ul>
-                  <dl className="mt-5 space-y-2 border-t border-slate-800 pt-4 text-sm">
-                    <div className="flex justify-between text-slate-400">
+                  <dl className="mt-5 space-y-2 border-t border-line pt-4 text-sm">
+                    <div className="flex justify-between text-subtle">
                       <dt>Subtotal</dt>
-                      <dd className="text-slate-200">{formatPrice(totals.subtotal)}</dd>
+                      <dd className="text-ink">{formatPrice(totals.subtotal)}</dd>
                     </div>
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-subtle">
                       <dt>Tax ({(TAX_RATE * 100).toFixed(2)}%)</dt>
-                      <dd className="text-slate-200">{formatPrice(totals.tax)}</dd>
+                      <dd className="text-ink">{formatPrice(totals.tax)}</dd>
                     </div>
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-subtle">
                       <dt>Shipping</dt>
-                      <dd className="text-slate-200">
+                      <dd className="text-ink">
                         {totals.shipping === 0 ? "Free" : formatPrice(totals.shipping)}
                       </dd>
                     </div>
-                    <div className="flex justify-between border-t border-slate-800 pt-3 text-base font-semibold text-slate-50">
+                    <div className="flex justify-between border-t border-line pt-3 text-base font-semibold text-ink">
                       <dt>Total</dt>
                       <dd>{formatPrice(totals.total)}</dd>
                     </div>

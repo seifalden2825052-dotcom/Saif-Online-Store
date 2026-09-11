@@ -6,10 +6,13 @@ import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
 import CheckoutModal from "./components/CheckoutModal";
 import ProductConfigurator from "./components/ProductConfigurator";
+import { useThemeSync } from "./store/theme";
 
 export default function App() {
+  useThemeSync();
+
   return (
-    <main className="min-h-screen bg-slate-950 font-sans text-slate-50 antialiased selection:bg-cyan-300/30">
+    <main className="min-h-screen bg-bg font-sans text-ink antialiased selection:bg-neon/20">
       <Navbar />
       <Hero />
       <Assurances />

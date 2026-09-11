@@ -72,7 +72,7 @@ export default function ProductConfigurator() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeProduct}
-            className="fixed inset-0 z-[80] bg-slate-950/80 backdrop-blur-md"
+            className="fixed inset-0 z-[80] bg-bg/80 backdrop-blur-md"
           />
           <div className="fixed inset-0 z-[90] flex items-center justify-center overflow-y-auto p-4">
             <motion.div
@@ -82,13 +82,13 @@ export default function ProductConfigurator() {
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               role="dialog"
               aria-label={`Configure ${product.name}`}
-              className="relative grid w-full max-w-4xl overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900/80 backdrop-blur-2xl md:grid-cols-2"
+              className="relative grid w-full max-w-4xl overflow-hidden rounded-[2rem] border border-line bg-surface/90 text-ink backdrop-blur-2xl md:grid-cols-2"
             >
               <button
                 type="button"
                 onClick={closeProduct}
                 aria-label="Close product configurator"
-                className="absolute right-4 top-4 z-10 rounded-full border border-white/10 bg-slate-950/50 p-2 text-slate-300 backdrop-blur-xl transition-colors hover:text-slate-50"
+                className="absolute right-4 top-4 z-10 rounded-full border border-line bg-bg/50 p-2 text-subtle backdrop-blur-xl transition-colors hover:text-ink"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -105,20 +105,20 @@ export default function ProductConfigurator() {
                 >
                   <Icon className="h-36 w-36 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]" />
                 </motion.div>
-                <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/50 px-3 py-1.5 text-xs text-slate-300 backdrop-blur-xl">
-                  <Star className="h-3.5 w-3.5 fill-cyan-300 text-cyan-300" />
+                <div className="absolute bottom-5 left-5 flex items-center gap-2 rounded-full border border-line bg-bg/50 px-3 py-1.5 text-xs text-subtle backdrop-blur-xl">
+                  <Star className="h-3.5 w-3.5 fill-neon text-neon" />
                   {product.rating} · {product.reviews.toLocaleString("en-US")} reviews
                 </div>
               </div>
 
               <div className="p-7">
-                <h2 className="text-2xl font-semibold tracking-tight text-slate-50">
+                <h2 className="text-2xl font-semibold tracking-tight text-ink">
                   {product.name}
                 </h2>
-                <p className="mt-3 text-sm leading-relaxed text-slate-400">{product.description}</p>
+                <p className="mt-3 text-sm leading-relaxed text-subtle">{product.description}</p>
 
                 <div className="mt-6">
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-subtle">
                     Finish
                   </span>
                   <div className="mt-3 flex flex-wrap gap-2.5">
@@ -131,8 +131,8 @@ export default function ProductConfigurator() {
                         aria-pressed={finish?.id === option.id}
                         className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all ${
                           finish?.id === option.id
-                            ? "border-cyan-300 scale-110"
-                            : "border-white/15 hover:border-white/40"
+                            ? "border-neon scale-110"
+                            : "border-line hover:border-neon/60"
                         }`}
                       >
                         <span
@@ -140,17 +140,17 @@ export default function ProductConfigurator() {
                           style={{ backgroundColor: option.swatch }}
                         >
                           {finish?.id === option.id && (
-                            <Check className="h-3.5 w-3.5 text-slate-950" />
+                            <Check className="h-3.5 w-3.5 text-ink" />
                           )}
                         </span>
                       </button>
                     ))}
                   </div>
-                  <p className="mt-2 text-xs text-slate-500">{finish?.name}</p>
+                  <p className="mt-2 text-xs text-subtle">{finish?.name}</p>
                 </div>
 
                 <div className="mt-6">
-                  <span className="text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                  <span className="text-[11px] uppercase tracking-[0.2em] text-subtle">
                     Configuration
                   </span>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -162,53 +162,53 @@ export default function ProductConfigurator() {
                         aria-pressed={size === option}
                         className={`rounded-full border px-4 py-2 text-xs font-semibold transition-all ${
                           size === option
-                            ? "border-cyan-300/60 bg-cyan-300/10 text-cyan-200"
-                            : "border-white/10 bg-white/5 text-slate-300 hover:border-white/25"
+                            ? "border-neon/60 bg-neon/10 text-neon"
+                            : "border-line bg-bg/40 text-subtle hover:border-neon/50"
                         }`}
                       >
                         {option}
                         {optionIndex > 0 && (
-                          <span className="ml-1.5 text-slate-500">+${optionIndex * 60}</span>
+                          <span className="ml-1.5 text-subtle">+${optionIndex * 60}</span>
                         )}
                       </button>
                     ))}
                   </div>
                 </div>
 
-                <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-white/5 pt-5">
+                <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-line pt-5">
                   {product.specs?.map((spec) => (
                     <div key={spec.label}>
-                      <dt className="text-[10px] uppercase tracking-[0.15em] text-slate-500">
+                      <dt className="text-[10px] uppercase tracking-[0.15em] text-subtle">
                         {spec.label}
                       </dt>
-                      <dd className="mt-1 text-xs font-medium text-slate-200">{spec.value}</dd>
+                      <dd className="mt-1 text-xs font-medium text-ink">{spec.value}</dd>
                     </div>
                   ))}
                 </dl>
 
                 <div className="mt-6 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-2 py-1.5">
+                  <div className="flex items-center gap-2 rounded-full border border-line bg-bg/40 px-2 py-1.5">
                     <button
                       type="button"
                       onClick={() => setQuantity((value) => Math.max(1, value - 1))}
                       aria-label="Decrease quantity"
-                      className="rounded-full p-1.5 text-slate-300 transition-colors hover:text-slate-50"
+                      className="rounded-full p-1.5 text-subtle transition-colors hover:text-ink"
                     >
                       <Minus className="h-3.5 w-3.5" />
                     </button>
-                    <span className="min-w-6 text-center text-sm font-semibold text-slate-50">
+                    <span className="min-w-6 text-center text-sm font-semibold text-ink">
                       {quantity}
                     </span>
                     <button
                       type="button"
                       onClick={() => setQuantity((value) => Math.min(10, value + 1))}
                       aria-label="Increase quantity"
-                      className="rounded-full p-1.5 text-slate-300 transition-colors hover:text-slate-50"
+                      className="rounded-full p-1.5 text-subtle transition-colors hover:text-ink"
                     >
                       <Plus className="h-3.5 w-3.5" />
                     </button>
                   </div>
-                  <p className="text-2xl font-semibold text-slate-50">
+                  <p className="text-2xl font-semibold text-ink">
                     {formatPrice(unitPrice * quantity)}
                   </p>
                 </div>
@@ -216,17 +216,17 @@ export default function ProductConfigurator() {
                 <MagneticButton
                   type="button"
                   onClick={handleAdd}
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-50 px-6 py-3.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-cyan-300"
+                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-bg transition-colors hover:bg-neon hover:text-white"
                 >
                   Add to bag
                 </MagneticButton>
 
-                <div className="mt-4 flex flex-wrap gap-4 text-xs text-slate-500">
+                <div className="mt-4 flex flex-wrap gap-4 text-xs text-subtle">
                   <span className="flex items-center gap-1.5">
-                    <Truck className="h-3.5 w-3.5 text-cyan-300" /> Free delivery over $500
+                    <Truck className="h-3.5 w-3.5 text-neon" /> Free delivery over $500
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-3.5 w-3.5 text-cyan-300" /> 3-year warranty
+                    <ShieldCheck className="h-3.5 w-3.5 text-neon" /> 3-year warranty
                   </span>
                 </div>
               </div>
