@@ -45,7 +45,7 @@ export default function SearchOverlay() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.28, ease: "easeOut" }}
           role="dialog"
-          aria-label="Search NEXUS"
+          aria-label="Search AUREN"
           className="fixed inset-0 z-[100] overflow-y-auto bg-bg/85 backdrop-blur-2xl"
         >
           <div className="grid-lines pointer-events-none absolute inset-0 opacity-70" />
@@ -53,7 +53,7 @@ export default function SearchOverlay() {
           <div className="relative mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-16">
             <div className="flex items-center justify-between gap-4">
               <span className="text-[11px] uppercase tracking-[0.35em] text-subtle">
-                Search NEXUS
+                Search AUREN
               </span>
               <button
                 type="button"

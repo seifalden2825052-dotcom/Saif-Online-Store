@@ -40,7 +40,6 @@ export default function ProductCard({ product, index = 0, featured = false }) {
       onPointerMove={handleMove}
       onPointerLeave={reset}
       onClick={open}
-      data-cursor="hover"
       initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.15 }}

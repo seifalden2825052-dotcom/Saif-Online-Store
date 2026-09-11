@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { create } from "zustand";
 
-const STORAGE_KEY = "nexus-theme";
+const STORAGE_KEY = "auren-theme";
 
 const readInitial = () => {
   if (typeof document === "undefined") return "dark";

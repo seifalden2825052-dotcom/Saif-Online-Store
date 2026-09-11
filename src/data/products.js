@@ -12,11 +12,11 @@ export const categories = ["Audio", "Wearables", "Displays", "Phones", "Desk", "
 
 export const products = [
   {
-    id: "nexus-q1",
+    id: "auren-q1",
     name: "Quantum ANC Headphones",
     tagline: "42h battery · adaptive noise cancelling",
     description:
-      "Hand-calibrated 40mm beryllium drivers with dual-chip adaptive cancelling. Tuned in our Zurich anechoic room, then re-checked on every single unit before it leaves the line.",
+      "Hand-calibrated 40mm beryllium drivers with dual-chip adaptive cancelling. Tuned for long listening sessions, then checked against our studio reference before it leaves the line.",
     price: 299,
     badge: "Best seller",
     category: "Audio",
@@ -35,7 +35,7 @@ export const products = [
     ],
   },
   {
-    id: "nexus-w2",
+    id: "auren-w2",
     name: "Neon Smartwatch S2",
     tagline: "AMOLED always-on · ECG sensor",
     description:
@@ -57,8 +57,8 @@ export const products = [
     ],
   },
   {
-    id: "nexus-t3",
-    name: "Nexus Tablet Pro 12.9",
+    id: "auren-t3",
+    name: "Auren Tablet Pro 12.9",
     tagline: "M-class silicon · 120Hz laminated glass",
     description:
       "Colour-accurate at 99% DCI-P3 out of the box, with a laminated 120Hz surface and full pen parallax correction for illustration work.",
@@ -80,7 +80,7 @@ export const products = [
     ],
   },
   {
-    id: "nexus-e4",
+    id: "auren-e4",
     name: "Pulse Earbuds Mini",
     tagline: "Spatial audio · wireless charging case",
     description:
@@ -102,7 +102,7 @@ export const products = [
     ],
   },
   {
-    id: "nexus-m5",
+    id: "auren-m5",
     name: 'Vortex 34" Ultrawide',
     tagline: "3440×1440 · 165Hz · 99% DCI-P3",
     description:
@@ -124,7 +124,7 @@ export const products = [
     ],
   },
   {
-    id: "nexus-p6",
+    id: "auren-p6",
     name: "Nova Phone 6",
     tagline: "Titanium frame · 1-inch main sensor",
     description:
@@ -147,7 +147,7 @@ export const products = [
     ],
   },
   {
-    id: "nexus-k7",
+    id: "auren-k7",
     name: "Flux Low-Profile Keyboard",
     tagline: "Hot-swap optical · aluminium deck",
     description:
@@ -169,7 +169,7 @@ export const products = [
     ],
   },
   {
-    id: "nexus-d8",
+    id: "auren-d8",
     name: "Spark Drone 4K",
     tagline: "34-min flight · obstacle tracking",
     description:

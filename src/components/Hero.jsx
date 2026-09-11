@@ -5,12 +5,12 @@ import AuroraBackground from "./AuroraBackground";
 import MagneticButton from "./MagneticButton";
 
 const stats = [
-  { label: "Units shipped", value: "1.4M" },
-  { label: "Avg. rating", value: "4.8/5" },
-  { label: "Countries served", value: "38" },
+  { label: "Independent pieces", value: "08" },
+  { label: "Average rating", value: "4.8/5" },
+  { label: "Warranty included", value: "03 yrs" },
 ];
 
-const words = "Hardware with nothing left to hide".split(" ");
+const words = "Precision for the everyday".split(" ");
 
 export default function Hero() {
   return (
@@ -25,7 +25,7 @@ export default function Hero() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.25em] text-slate-300 backdrop-blur-xl"
           >
-            Autumn drop · shipping in 2 days
+            AUREN / EDITION 01 · NOW SHIPPING
           </motion.span>
 
           <h1 className="mt-7 text-5xl font-semibold leading-[1.02] tracking-tight text-slate-50 sm:text-6xl lg:text-7xl">
@@ -48,9 +48,8 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.35 }}
             className="mt-7 max-w-xl text-lg leading-relaxed text-slate-400"
           >
-            Studio-grade audio, colour-accurate displays and wearables that survive a real week.
-            Engineered in Zurich, calibrated by hand, every unit shipped with its own measurement
-            report.
+            A considered collection of devices built around one idea: technology should feel
+            quieter, smarter, and better made. Selected for people who notice the details.
           </motion.p>
 
           <motion.div
@@ -73,7 +72,7 @@ export default function Hero() {
               strength={0.2}
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-200 backdrop-blur-xl transition-colors hover:border-white/25"
             >
-              Compare specs
+              Read the Auren standard
             </MagneticButton>
           </motion.div>
 
@@ -115,11 +114,11 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="absolute -bottom-7 left-4 right-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-slate-900/70 px-5 py-4 backdrop-blur-2xl sm:left-8 sm:right-8"
           >
-            <span className="flex items-center gap-2 text-sm text-slate-300">
-              <Truck className="h-4 w-4 text-cyan-300" /> Free 2-day delivery over $500
+              <span className="flex items-center gap-2 text-sm text-slate-300">
+                <Truck className="h-4 w-4 text-cyan-300" /> Complimentary delivery over $500
             </span>
             <span className="flex items-center gap-2 text-sm text-slate-300">
-              <ShieldCheck className="h-4 w-4 text-cyan-300" /> 3-year warranty
+                <ShieldCheck className="h-4 w-4 text-cyan-300" /> Auren care, included
             </span>
           </motion.div>
         </motion.div>

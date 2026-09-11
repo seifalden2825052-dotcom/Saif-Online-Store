@@ -74,7 +74,7 @@ export const useCartStore = create(
       },
     }),
     {
-      name: "auratech-cart",
+      name: "auren-cart",
       version: 1,
       skipHydration: true,
       partialize: (state) => ({ items: state.items }),

@@ -4,23 +4,23 @@ import { Truck, RotateCcw, ShieldCheck, Headset } from "lucide-react";
 const perks = [
   {
     icon: Truck,
-    title: "Free 2-day delivery",
-    body: "On every order above $500, tracked door to door across the EU and US.",
+    title: "Delivery, considered",
+    body: "Complimentary tracked delivery on orders above $500, with updates at every step.",
   },
   {
     icon: RotateCcw,
-    title: "30-day returns",
-    body: "Prepaid return label in the box. No restocking fee, no phone calls.",
+    title: "30-day perspective",
+    body: "Try it in your space. Return it with a prepaid label if it is not the right fit.",
   },
   {
     icon: ShieldCheck,
-    title: "3-year warranty",
-    body: "Covers battery degradation below 80% and any manufacturing defect.",
+    title: "Auren care",
+    body: "Three years of cover for manufacturing defects and battery performance below 80%.",
   },
   {
     icon: Headset,
-    title: "Human support",
-    body: "Average first reply in 7 minutes, 07:00–23:00 CET, seven days a week.",
+    title: "Real people",
+    body: "Product advice from a human team, seven days a week, without a maze of forms.",
   },
 ];
 

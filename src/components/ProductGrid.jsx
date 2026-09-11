@@ -47,17 +47,17 @@ export default function ProductGrid() {
         className="mb-14 flex flex-wrap items-end justify-between gap-6"
       >
         <div>
-          <span className="text-[11px] uppercase tracking-[0.3em] text-neon">In stock now</span>
+          <span className="text-[11px] uppercase tracking-[0.3em] text-neon">The Auren edit</span>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
-            The current lineup
+            Designed to belong
           </h2>
           <p className="mt-4 max-w-xl text-subtle">
-            Eight products, each with a per-unit measurement report, a 30-day return window and no
-            restocking fee. Tap any product to configure finish and size.
+            Eight considered objects for sound, sight, movement and focus. Every piece includes
+            transparent specifications, a 30-day return window and Auren care.
           </p>
         </div>
         <span className="rounded-full border border-line bg-surface/60 px-4 py-1.5 text-xs text-subtle backdrop-blur-xl">
-          Updated hourly from our Rotterdam warehouse
+          Curated in the Auren studio · 2025 / 01
         </span>
       </motion.div>
 

@@ -132,7 +132,7 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
-/* ── NEXUS brand surface tokens ────────────────────────────────────────────
+/* ── AUREN brand surface tokens ────────────────────────────────────────────
  * Light  = Apple-like: white/silver surfaces, black ink, soft shadows.
  * Dark   = Nothing-like: obsidian black, grid lines, neon accent.
  */
@@ -189,10 +189,10 @@
     transparent 70%
   );
   background-size: 250% 100%;
-  animation: nexus-shimmer 1.6s ease-in-out infinite;
+  animation: auren-shimmer 1.6s ease-in-out infinite;
 }
 
-@keyframes nexus-shimmer {
+@keyframes auren-shimmer {
   0% {
     background-position: 180% 0;
   }

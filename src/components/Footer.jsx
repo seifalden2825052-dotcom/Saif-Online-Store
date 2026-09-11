@@ -18,10 +18,10 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8">
         <div>
           <span className="text-lg font-bold tracking-tight text-slate-50">
-            AURA<span className="text-blue-500">TECH</span>
+            AUR<span className="text-blue-500">EN</span>
           </span>
           <p className="mt-3 max-w-xs text-sm text-slate-400">
-            Designed in Zurich, assembled in Rotterdam. Hardware that outlives its warranty.
+            A considered collection of premium technology for sound, sight, movement and focus.
           </p>
         </div>
         {columns.map((column) => (
@@ -43,8 +43,7 @@ export default function Footer() {
         ))}
       </div>
       <div className="border-t border-slate-800 px-4 py-6 text-center text-xs text-slate-500 sm:px-6 lg:px-8">
-        © {new Date().getFullYear()} AuraTech Systems BV · Herengracht 42, Amsterdam · VAT
-        NL8412.33.901.B01
+         © {new Date().getFullYear()} Auren Studio · Precision technology, made more human.
       </div>
     </motion.footer>
   );

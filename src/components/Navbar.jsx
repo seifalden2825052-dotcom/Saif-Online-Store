@@ -46,9 +46,9 @@ export default function Navbar() {
           <a
             href="#shop"
             className="text-sm font-semibold uppercase tracking-[0.42em] text-ink"
-            aria-label="NEXUS home"
+            aria-label="AUREN home"
           >
-            Nex<span className="text-neon">us</span>
+            AUR<span className="text-neon">EN</span>
           </a>
 
           <div className="hidden items-center gap-6 md:flex">
@@ -102,7 +102,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            {["Design", "Support", "Stores"].map((link) => (
+            {["The Auren Standard", "Journal", "Stores"].map((link) => (
               <a
                 key={link}
                 href="#shop"

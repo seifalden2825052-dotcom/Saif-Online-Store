@@ -101,7 +101,7 @@ export default function CheckoutModal() {
               <div className="flex items-center gap-2">
                 <Lock className="h-4 w-4 text-blue-500" />
                 <h2 className="text-base font-semibold text-slate-50">
-                  Secure checkout · AuraTech
+                  Secure checkout · AUREN
                 </h2>
               </div>
               <button
@@ -120,7 +120,7 @@ export default function CheckoutModal() {
                 <h3 className="mt-4 text-xl font-semibold text-slate-50">Order confirmed</h3>
                 <p className="mt-2 max-w-sm text-sm text-slate-400">
                   We emailed a receipt to {form.email || "your inbox"}. Your order leaves the
-                  Rotterdam warehouse within 24 hours.
+                  AUREN fulfillment within 24 hours.
                 </p>
                 <button
                   type="button"
