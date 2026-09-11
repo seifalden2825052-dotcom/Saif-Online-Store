@@ -1,0 +1,203 @@
+const finishes = [
+  { id: "graphite", name: "Graphite", swatch: "#1f2937" },
+  { id: "lunar", name: "Lunar Silver", swatch: "#e5e7eb" },
+  { id: "signal", name: "Signal Red", swatch: "#ef4444" },
+  { id: "midnight", name: "Midnight Blue", swatch: "#1d4ed8" },
+];
+
+const img = (id, w = 1200) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
+
+export const categories = ["Audio", "Wearables", "Displays", "Phones", "Desk", "Aerial"];
+
+export const products = [
+  {
+    id: "nexus-q1",
+    name: "Quantum ANC Headphones",
+    tagline: "42h battery · adaptive noise cancelling",
+    description:
+      "Hand-calibrated 40mm beryllium drivers with dual-chip adaptive cancelling. Tuned in our Zurich anechoic room, then re-checked on every single unit before it leaves the line.",
+    price: 299,
+    badge: "Best seller",
+    category: "Audio",
+    inStock: true,
+    image: img("1505740420928-5e560c06d30e", 1600),
+    icon: "Headphones",
+    rating: 4.9,
+    reviews: 2841,
+    span: "lg:col-span-2 lg:row-span-2",
+    finishes,
+    sizes: ["Standard", "Studio XL"],
+    specs: [
+      { label: "Battery", value: "42 hours" },
+      { label: "Drivers", value: "40mm beryllium" },
+      { label: "Weight", value: "268 g" },
+    ],
+  },
+  {
+    id: "nexus-w2",
+    name: "Neon Smartwatch S2",
+    tagline: "AMOLED always-on · ECG sensor",
+    description:
+      "A 1.9-inch LTPO panel that drops to 1Hz when you look away, medical-grade ECG, and a titanium case that shrugs off a full week of abuse.",
+    price: 199,
+    category: "Wearables",
+    inStock: true,
+    image: img("1523275335684-37898b6baf30"),
+    icon: "Watch",
+    rating: 4.7,
+    reviews: 1163,
+    span: "",
+    finishes,
+    sizes: ["41 mm", "45 mm"],
+    specs: [
+      { label: "Display", value: '1.9" LTPO' },
+      { label: "Water", value: "10 ATM" },
+      { label: "Battery", value: "6 days" },
+    ],
+  },
+  {
+    id: "nexus-t3",
+    name: "Nexus Tablet Pro 12.9",
+    tagline: "M-class silicon · 120Hz laminated glass",
+    description:
+      "Colour-accurate at 99% DCI-P3 out of the box, with a laminated 120Hz surface and full pen parallax correction for illustration work.",
+    price: 899,
+    badge: "New",
+    category: "Displays",
+    inStock: true,
+    image: img("1544244015-0df4b3ffc6b0", 1600),
+    icon: "Tablet",
+    rating: 4.8,
+    reviews: 642,
+    span: "lg:col-span-2",
+    finishes,
+    sizes: ["256 GB", "512 GB", "1 TB"],
+    specs: [
+      { label: "Panel", value: '12.9" 120Hz' },
+      { label: "Colour", value: "99% DCI-P3" },
+      { label: "Ports", value: "2× USB4" },
+    ],
+  },
+  {
+    id: "nexus-e4",
+    name: "Pulse Earbuds Mini",
+    tagline: "Spatial audio · wireless charging case",
+    description:
+      "Four microphones per bud, head-tracked spatial audio, and a case that tops up in 22 minutes on any Qi2 pad.",
+    price: 149,
+    category: "Audio",
+    inStock: true,
+    image: img("1590658268037-6bf12165a8df"),
+    icon: "Ear",
+    rating: 4.6,
+    reviews: 3907,
+    span: "",
+    finishes,
+    sizes: ["One size"],
+    specs: [
+      { label: "Battery", value: "8h + 24h" },
+      { label: "Charging", value: "Qi2" },
+      { label: "Rating", value: "IPX5" },
+    ],
+  },
+  {
+    id: "nexus-m5",
+    name: 'Vortex 34" Ultrawide',
+    tagline: "3440×1440 · 165Hz · 99% DCI-P3",
+    description:
+      "A factory-profiled ultrawide with a hardware LUT, per-unit Delta-E report in the box, and a stand that actually holds its height.",
+    price: 599,
+    category: "Displays",
+    inStock: true,
+    image: img("1527443224154-c4a3942d3acf", 1400),
+    icon: "Monitor",
+    rating: 4.8,
+    reviews: 488,
+    span: "lg:row-span-2",
+    finishes,
+    sizes: ["Matte", "Glossy"],
+    specs: [
+      { label: "Res", value: "3440×1440" },
+      { label: "Refresh", value: "165 Hz" },
+      { label: "Delta-E", value: "< 1.0" },
+    ],
+  },
+  {
+    id: "nexus-p6",
+    name: "Nova Phone 6",
+    tagline: "Titanium frame · 1-inch main sensor",
+    description:
+      "A one-inch stacked sensor, titanium mid-frame, and seven years of OS updates committed in writing.",
+    price: 999,
+    badge: "Limited",
+    category: "Phones",
+    inStock: false,
+    image: img("1511707171634-5f897ff02aa9", 1600),
+    icon: "Smartphone",
+    rating: 4.9,
+    reviews: 5220,
+    span: "lg:col-span-2",
+    finishes,
+    sizes: ["256 GB", "512 GB"],
+    specs: [
+      { label: "Sensor", value: "1-inch stacked" },
+      { label: "Frame", value: "Grade-5 titanium" },
+      { label: "Updates", value: "7 years" },
+    ],
+  },
+  {
+    id: "nexus-k7",
+    name: "Flux Low-Profile Keyboard",
+    tagline: "Hot-swap optical · aluminium deck",
+    description:
+      "Hot-swap optical switches, a single-piece aluminium deck, and 1000Hz polling over the bundled 2.4GHz receiver.",
+    price: 249,
+    category: "Desk",
+    inStock: true,
+    image: img("1587829741301-dc798b83add3"),
+    icon: "Keyboard",
+    rating: 4.7,
+    reviews: 914,
+    span: "",
+    finishes,
+    sizes: ["65%", "TKL", "Full"],
+    specs: [
+      { label: "Switches", value: "Optical, hot-swap" },
+      { label: "Polling", value: "1000 Hz" },
+      { label: "Deck", value: "6063 aluminium" },
+    ],
+  },
+  {
+    id: "nexus-d8",
+    name: "Spark Drone 4K",
+    tagline: "34-min flight · obstacle tracking",
+    description:
+      "Six-way obstacle sensing, 34 minutes of real-world flight, and a folded footprint that fits a jacket pocket.",
+    price: 799,
+    category: "Aerial",
+    inStock: false,
+    image: img("1473968512647-3e447244af8f"),
+    icon: "Plane",
+    rating: 4.5,
+    reviews: 327,
+    span: "",
+    finishes,
+    sizes: ["Core", "Fly More"],
+    specs: [
+      { label: "Flight", value: "34 min" },
+      { label: "Video", value: "4K/60 HDR" },
+      { label: "Range", value: "12 km" },
+    ],
+  },
+];
+
+export const heroImage = img("1546435770-a3e426bf472b", 1600);
+
+export const trendingSearches = [
+  "Quantum ANC Headphones",
+  "Ultrawide monitor",
+  "Titanium phone",
+  "Hot-swap keyboard",
+  "Spatial audio earbuds",
+];
