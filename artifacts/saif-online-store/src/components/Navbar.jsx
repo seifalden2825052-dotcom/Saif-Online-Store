@@ -18,6 +18,7 @@ import { useUiStore } from "../store/ui";
 import { useCartHydration } from "../hooks/useCartHydration";
 import { useOverlayA11y } from "../hooks/useOverlayA11y";
 import ThemeToggle from "./ThemeToggle";
+import BrandMark from "./BrandMark";
 
 const megaMenu = [
   { name: "Audio", desc: "Headphones & earbuds", icon: Headphones },
@@ -76,10 +77,11 @@ export default function Navbar() {
           <div className="flex items-center gap-10">
             <a
               href="#hero"
-              className="text-sm font-semibold uppercase tracking-[0.42em] text-ink"
+              className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.42em] text-ink"
               aria-label="AUREN home"
             >
-              AUR<span className="text-neon">EN</span>
+              <BrandMark size={30} />
+              <span>AUR<span className="text-neon">EN</span></span>
             </a>
 
             <div className="hidden items-center gap-8 md:flex">
@@ -215,9 +217,10 @@ export default function Navbar() {
               <header className="flex h-16 items-center justify-between border-b border-line px-6">
                 <span
                   id="mobile-menu-title"
-                  className="text-sm font-semibold uppercase tracking-[0.42em] text-ink"
+                  className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.42em] text-ink"
                 >
-                  AUR<span className="text-neon">EN</span>
+                  <BrandMark size={28} />
+                  <span>AUR<span className="text-neon">EN</span></span>
                 </span>
                 <button
                   type="button"
