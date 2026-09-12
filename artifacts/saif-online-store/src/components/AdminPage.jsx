@@ -386,7 +386,7 @@ function ProductsView({ catalog, onAddProduct, onToast }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [draft, setDraft] = useState({ name: "", category: productCategories[0], price: "", stock: "10", tagline: "", image: "" });
+  const [draft, setDraft] = useState({ name: "", category: productCategories[0], price: "", stock: "10", tagline: "", image: "", imageUrl: "", imageName: "" });
   const categories = ["All", ...new Set(catalog.map((product) => product.category))];
   const filtered = catalog.filter((product) => product.name.toLowerCase().includes(query.toLowerCase()) && (category === "All" || product.category === category));
 
@@ -396,7 +396,25 @@ function ProductsView({ catalog, onAddProduct, onToast }) {
 
   function closeForm() {
     setIsFormOpen(false);
-    setDraft({ name: "", category: productCategories[0], price: "", stock: "10", tagline: "", image: "" });
+    setDraft({ name: "", category: productCategories[0], price: "", stock: "10", tagline: "", image: "", imageUrl: "", imageName: "" });
+  }
+
+  function handleImageChange(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      onToast("Please choose an image file.");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      onToast("Please choose an image smaller than 2MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setDraft((current) => ({ ...current, image: String(reader.result), imageUrl: "", imageName: file.name }));
+    };
+    reader.readAsDataURL(file);
   }
 
   function handleSubmit(event) {
@@ -433,7 +451,7 @@ function ProductsView({ catalog, onAddProduct, onToast }) {
       <div className="admin-page-heading"><div><span className="admin-eyebrow">Catalog</span><h1>Products <span>({catalog.length})</span></h1><p>Your curated AUREN collection, ready to be managed.</p></div><button className="admin-primary-button admin-compact-button" onClick={() => setIsFormOpen(true)}><Package size={15} /> Add product</button></div>
       <div className="admin-toolbar"><label className="admin-search-field"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search your collection…" /></label><div className="admin-filter-pills">{categories.map((item) => <button className={category === item ? "active" : ""} key={item} onClick={() => setCategory(item)}>{item}</button>)}</div></div>
       <section className="admin-surface admin-product-surface"><div className="admin-table-scroll"><table className="admin-table admin-product-table"><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Rating</th><th>Stock</th><th /></tr></thead><tbody>{filtered.map((product) => <tr key={product.id}><td><div className="admin-product-cell"><img src={product.image} alt="" /><span><strong>{product.name}</strong><small>{product.tagline}</small></span></div></td><td><span className="admin-category-label">{product.category}</span></td><td><strong>{formatCurrency(product.price)}</strong></td><td><span className="admin-rating">★ {product.rating}</span><small className="admin-muted"> {product.reviews.toLocaleString()} reviews</small></td><td><span className={`admin-stock ${product.inStock ? "available" : "unavailable"}`}><i />{product.inStock ? "In stock" : "Out of stock"}</span></td><td><button className="admin-table-action" onClick={() => onToast(`${product.name} is ready for review.`)}>Manage <ChevronRight size={14} /></button></td></tr>)}</tbody></table></div>{filtered.length === 0 ? <div className="admin-empty-state">No products match this search.</div> : null}</section>
-      {isFormOpen ? <div className="admin-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) closeForm(); }}><form className="admin-product-modal" onSubmit={handleSubmit}><div className="admin-modal-header"><div><span className="admin-eyebrow">Catalog entry</span><h2>Add product</h2></div><button type="button" className="admin-icon-button" onClick={closeForm} aria-label="Close add product dialog"><X size={18} /></button></div><div className="admin-modal-grid"><label>Product name<input required value={draft.name} onChange={(event) => updateDraft("name", event.target.value)} placeholder="e.g. Halo Studio Speaker" /></label><label>Category<select value={draft.category} onChange={(event) => updateDraft("category", event.target.value)}>{productCategories.map((item) => <option key={item}>{item}</option>)}</select></label><label>Price (USD)<input required min="0" step="0.01" type="number" value={draft.price} onChange={(event) => updateDraft("price", event.target.value)} placeholder="299" /></label><label>Opening stock<input min="0" step="1" type="number" value={draft.stock} onChange={(event) => updateDraft("stock", event.target.value)} /></label><label className="admin-modal-wide">Tagline<input value={draft.tagline} onChange={(event) => updateDraft("tagline", event.target.value)} placeholder="A short line for the catalog" /></label><label className="admin-modal-wide">Image URL <span className="admin-field-hint">optional</span><input type="url" value={draft.image} onChange={(event) => updateDraft("image", event.target.value)} placeholder="https://images.unsplash.com/…" /></label></div><div className="admin-modal-actions"><button type="button" className="admin-secondary-button" onClick={closeForm}>Cancel</button><button className="admin-primary-button" type="submit">Add to catalog <ArrowUpRight size={15} /></button></div></form></div> : null}
+      {isFormOpen ? <div className="admin-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) closeForm(); }}><form className="admin-product-modal" onSubmit={handleSubmit}><div className="admin-modal-header"><div><span className="admin-eyebrow">Catalog entry</span><h2>Add product</h2></div><button type="button" className="admin-icon-button" onClick={closeForm} aria-label="Close add product dialog"><X size={18} /></button></div><div className="admin-modal-grid"><label>Product name<input required value={draft.name} onChange={(event) => updateDraft("name", event.target.value)} placeholder="e.g. Halo Studio Speaker" /></label><label>Category<select value={draft.category} onChange={(event) => updateDraft("category", event.target.value)}>{productCategories.map((item) => <option key={item}>{item}</option>)}</select></label><label>Price (USD)<input required min="0" step="0.01" type="number" value={draft.price} onChange={(event) => updateDraft("price", event.target.value)} placeholder="299" /></label><label>Opening stock<input min="0" step="1" type="number" value={draft.stock} onChange={(event) => updateDraft("stock", event.target.value)} /></label><label className="admin-modal-wide">Tagline<input value={draft.tagline} onChange={(event) => updateDraft("tagline", event.target.value)} placeholder="A short line for the catalog" /></label><label className="admin-modal-wide admin-upload-field">Upload image from device <span className="admin-field-hint">JPG, PNG, or WebP · max 2MB</span><input type="file" accept="image/*" onChange={handleImageChange} /><span className="admin-upload-name">{draft.imageName || "Choose an image from your device"}</span></label><label className="admin-modal-wide">Image URL <span className="admin-field-hint">optional alternative</span><input type="url" value={draft.imageUrl} onChange={(event) => { const value = event.target.value; updateDraft("imageUrl", value); updateDraft("image", value); updateDraft("imageName", ""); }} placeholder="https://images.unsplash.com/…" /></label>{draft.image ? <div className="admin-upload-preview admin-modal-wide"><img src={draft.image} alt="Product preview" /><span>Preview</span></div> : null}</div><div className="admin-modal-actions"><button type="button" className="admin-secondary-button" onClick={closeForm}>Cancel</button><button className="admin-primary-button" type="submit">Add to catalog <ArrowUpRight size={15} /></button></div></form></div> : null}
     </div>
   );
 }
