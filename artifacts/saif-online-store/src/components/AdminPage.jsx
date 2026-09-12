@@ -29,6 +29,7 @@ import {
   X,
 } from "lucide-react";
 import { products } from "../data/products";
+import BrandMark from "./BrandMark";
 
 const DEMO_EMAIL = "demo@auren.com";
 const DEMO_PASSWORD = "demo123";
@@ -155,6 +156,39 @@ const demoActivity = [
   { icon: Users, title: "New customer profile", detail: "Omar Khalil joined the AUREN list", time: "2 hrs ago", tone: "blue" },
   { icon: ShieldCheck, title: "Secure session verified", detail: "Admin access authenticated from demo workspace", time: "Today, 09:02", tone: "neutral" },
 ];
+
+const productCategories = ["Audio", "Wearables", "Displays", "Phones", "Desk", "Aerial"];
+
+const demoNotifications = [
+  { id: "order-1048", title: "New order received", detail: "Maya Hassan placed #AUR-1048", time: "12 min ago", section: "orders", tone: "copper" },
+  { id: "inventory-q1", title: "Inventory updated", detail: "4 units added to Quantum ANC Headphones", time: "48 min ago", section: "products", tone: "green" },
+  { id: "customer-omar", title: "New customer profile", detail: "Omar Khalil joined the AUREN list", time: "2 hrs ago", section: "activity", tone: "blue" },
+];
+
+function readStoredCatalog() {
+  if (typeof window === "undefined") return products;
+  try {
+    const stored = JSON.parse(window.localStorage.getItem("auren-admin-products") ?? "null");
+    return Array.isArray(stored) && stored.length ? stored : products;
+  } catch {
+    return products;
+  }
+}
+
+function downloadCsv(filename, rows) {
+  const csv = rows
+    .map((row) => row.map((value) => `"${String(value ?? "").replaceAll('"', '""')}"`).join(","))
+    .join("\n");
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
 function formatCurrency(value) {
   return new Intl.NumberFormat("en-US", {
@@ -331,7 +365,7 @@ function Overview({ summary, onNavigate, onSelectOrder }) {
   );
 }
 
-function OrdersView({ onSelect }) {
+function OrdersView({ onSelect, onToast }) {
   const [filter, setFilter] = useState("All");
   const [query, setQuery] = useState("");
   const filtered = demoOrders.filter((order) => {
@@ -341,23 +375,65 @@ function OrdersView({ onSelect }) {
   });
   return (
     <div className="admin-view">
-      <div className="admin-page-heading"><div><span className="admin-eyebrow">Commerce</span><h1>Orders <span>({demoOrders.length})</span></h1><p>Track the customer journey from payment to delivery.</p></div><button className="admin-primary-button admin-compact-button"><ExternalLink size={15} /> Export report</button></div>
+      <div className="admin-page-heading"><div><span className="admin-eyebrow">Commerce</span><h1>Orders <span>({demoOrders.length})</span></h1><p>Track the customer journey from payment to delivery.</p></div><button className="admin-primary-button admin-compact-button" onClick={() => { downloadCsv("auren-orders-report.csv", [["Order", "Customer", "Product", "Date", "Total", "Status"], ...demoOrders.map((order) => [order.id, order.customer, order.product, order.date, order.total, order.status])]); onToast("Orders report downloaded."); }}><ExternalLink size={15} /> Export report</button></div>
       <div className="admin-toolbar"><label className="admin-search-field"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search orders or customers…" /></label><div className="admin-filter-pills">{["All", "Paid", "Processing", "Shipped"].map((item) => <button className={filter === item ? "active" : ""} key={item} onClick={() => setFilter(item)}>{item}</button>)}</div></div>
       <section className="admin-surface admin-table-surface"><div className="admin-table-scroll"><table className="admin-table"><thead><tr><th>Order</th><th>Customer</th><th>Product</th><th>Date</th><th>Total</th><th>Status</th><th /></tr></thead><tbody>{filtered.map((order) => <tr key={order.id}><td><strong>{order.id}</strong></td><td>{order.customer}</td><td className="admin-table-product">{order.product}</td><td className="admin-muted">{order.date}</td><td><strong>{order.total}</strong></td><td><StatusBadge status={order.status} /></td><td><button className="admin-table-action" onClick={() => onSelect(order)}>View <ChevronRight size={14} /></button></td></tr>)}</tbody></table></div>{filtered.length === 0 ? <div className="admin-empty-state">No orders match this search.</div> : null}</section>
     </div>
   );
 }
 
-function ProductsView({ onToast }) {
+function ProductsView({ catalog, onAddProduct, onToast }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
-  const categories = ["All", ...new Set(products.map((product) => product.category))];
-  const filtered = products.filter((product) => product.name.toLowerCase().includes(query.toLowerCase()) && (category === "All" || product.category === category));
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [draft, setDraft] = useState({ name: "", category: productCategories[0], price: "", stock: "10", tagline: "", image: "" });
+  const categories = ["All", ...new Set(catalog.map((product) => product.category))];
+  const filtered = catalog.filter((product) => product.name.toLowerCase().includes(query.toLowerCase()) && (category === "All" || product.category === category));
+
+  function updateDraft(field, value) {
+    setDraft((current) => ({ ...current, [field]: value }));
+  }
+
+  function closeForm() {
+    setIsFormOpen(false);
+    setDraft({ name: "", category: productCategories[0], price: "", stock: "10", tagline: "", image: "" });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const name = draft.name.trim();
+    const price = Number(draft.price);
+    const stock = Math.max(0, Number(draft.stock) || 0);
+    if (!name || !Number.isFinite(price) || price < 0) return;
+    const product = {
+      id: `auren-custom-${Date.now()}`,
+      name,
+      tagline: draft.tagline.trim() || "Precision technology, considered.",
+      description: draft.tagline.trim() || "A new AUREN catalog addition.",
+      price,
+      category: draft.category,
+      inStock: stock > 0,
+      stock,
+      image: draft.image.trim() || catalog[0]?.image,
+      icon: "Package",
+      rating: 5,
+      reviews: 0,
+      span: "",
+      finishes: [],
+      sizes: ["Standard"],
+      specs: [],
+    };
+    onAddProduct(product);
+    closeForm();
+    onToast(`${name} added to the catalog.`);
+  }
+
   return (
     <div className="admin-view">
-      <div className="admin-page-heading"><div><span className="admin-eyebrow">Catalog</span><h1>Products <span>({products.length})</span></h1><p>Your curated AUREN collection, ready to be managed.</p></div><button className="admin-primary-button admin-compact-button" onClick={() => onToast("Product creation is available in the next catalog release.")}><Package size={15} /> Add product</button></div>
+      <div className="admin-page-heading"><div><span className="admin-eyebrow">Catalog</span><h1>Products <span>({catalog.length})</span></h1><p>Your curated AUREN collection, ready to be managed.</p></div><button className="admin-primary-button admin-compact-button" onClick={() => setIsFormOpen(true)}><Package size={15} /> Add product</button></div>
       <div className="admin-toolbar"><label className="admin-search-field"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search your collection…" /></label><div className="admin-filter-pills">{categories.map((item) => <button className={category === item ? "active" : ""} key={item} onClick={() => setCategory(item)}>{item}</button>)}</div></div>
-      <section className="admin-surface admin-product-surface"><div className="admin-table-scroll"><table className="admin-table admin-product-table"><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Rating</th><th>Stock</th><th /></tr></thead><tbody>{filtered.map((product) => <tr key={product.id}><td><div className="admin-product-cell"><img src={product.image} alt="" /><span><strong>{product.name}</strong><small>{product.tagline}</small></span></div></td><td><span className="admin-category-label">{product.category}</span></td><td><strong>{formatCurrency(product.price)}</strong></td><td><span className="admin-rating">★ {product.rating}</span><small className="admin-muted"> {product.reviews.toLocaleString()} reviews</small></td><td><span className={`admin-stock ${product.inStock ? "available" : "unavailable"}`}><i />{product.inStock ? "In stock" : "Out of stock"}</span></td><td><button className="admin-table-action" onClick={() => onToast(`${product.name} is ready for review.`)}>Manage <ChevronRight size={14} /></button></td></tr>)}</tbody></table></div></section>
+      <section className="admin-surface admin-product-surface"><div className="admin-table-scroll"><table className="admin-table admin-product-table"><thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Rating</th><th>Stock</th><th /></tr></thead><tbody>{filtered.map((product) => <tr key={product.id}><td><div className="admin-product-cell"><img src={product.image} alt="" /><span><strong>{product.name}</strong><small>{product.tagline}</small></span></div></td><td><span className="admin-category-label">{product.category}</span></td><td><strong>{formatCurrency(product.price)}</strong></td><td><span className="admin-rating">★ {product.rating}</span><small className="admin-muted"> {product.reviews.toLocaleString()} reviews</small></td><td><span className={`admin-stock ${product.inStock ? "available" : "unavailable"}`}><i />{product.inStock ? "In stock" : "Out of stock"}</span></td><td><button className="admin-table-action" onClick={() => onToast(`${product.name} is ready for review.`)}>Manage <ChevronRight size={14} /></button></td></tr>)}</tbody></table></div>{filtered.length === 0 ? <div className="admin-empty-state">No products match this search.</div> : null}</section>
+      {isFormOpen ? <div className="admin-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) closeForm(); }}><form className="admin-product-modal" onSubmit={handleSubmit}><div className="admin-modal-header"><div><span className="admin-eyebrow">Catalog entry</span><h2>Add product</h2></div><button type="button" className="admin-icon-button" onClick={closeForm} aria-label="Close add product dialog"><X size={18} /></button></div><div className="admin-modal-grid"><label>Product name<input required value={draft.name} onChange={(event) => updateDraft("name", event.target.value)} placeholder="e.g. Halo Studio Speaker" /></label><label>Category<select value={draft.category} onChange={(event) => updateDraft("category", event.target.value)}>{productCategories.map((item) => <option key={item}>{item}</option>)}</select></label><label>Price (USD)<input required min="0" step="0.01" type="number" value={draft.price} onChange={(event) => updateDraft("price", event.target.value)} placeholder="299" /></label><label>Opening stock<input min="0" step="1" type="number" value={draft.stock} onChange={(event) => updateDraft("stock", event.target.value)} /></label><label className="admin-modal-wide">Tagline<input value={draft.tagline} onChange={(event) => updateDraft("tagline", event.target.value)} placeholder="A short line for the catalog" /></label><label className="admin-modal-wide">Image URL <span className="admin-field-hint">optional</span><input type="url" value={draft.image} onChange={(event) => updateDraft("image", event.target.value)} placeholder="https://images.unsplash.com/…" /></label></div><div className="admin-modal-actions"><button type="button" className="admin-secondary-button" onClick={closeForm}>Cancel</button><button className="admin-primary-button" type="submit">Add to catalog <ArrowUpRight size={15} /></button></div></form></div> : null}
     </div>
   );
 }
@@ -376,13 +452,51 @@ function OrderDrawer({ order, onClose }) {
   return <><div className="admin-drawer-backdrop" onClick={onClose} /><aside className="admin-order-drawer"><div className="admin-drawer-header"><div><span className="admin-eyebrow">Order detail</span><h2>{order.id}</h2></div><button className="admin-icon-button" onClick={onClose} aria-label="Close order detail"><X size={18} /></button></div><div className="admin-drawer-status"><StatusBadge status={order.status} /><span>{order.date}</span></div><div className="admin-drawer-customer"><span className="admin-order-avatar">{order.customer.split(" ").map((name) => name[0]).join("")}</span><div><strong>{order.customer}</strong><small>Demo customer profile</small></div></div><div className="admin-drawer-line"><span>Item</span><strong>{order.product}</strong></div><div className="admin-drawer-line"><span>Total</span><strong>{order.total}</strong></div><div className="admin-drawer-note"><Sparkles size={16} /><p>This order is simulated for the portfolio experience. No fulfillment or payment has been triggered.</p></div><button className="admin-secondary-button" onClick={onClose}>Close preview</button></aside></>;
 }
 
+function SearchResults({ results, onSelect }) {
+  return (
+    <div className="admin-search-results" role="listbox">
+      {results.length ? results.map((result) => {
+        const Icon = result.icon;
+        return <button type="button" key={result.id} className="admin-search-result" onClick={() => onSelect(result)}>
+          <span className="admin-search-result-icon"><Icon size={14} /></span>
+          <span><strong>{result.title}</strong><small>{result.type} · {result.detail}</small></span>
+          <ChevronRight size={14} />
+        </button>;
+      }) : <div className="admin-search-empty"><Search size={15} /> No matching workspace results.</div>}
+    </div>
+  );
+}
+
+function NotificationPopover({ notifications, readNotifications, onRead, onMarkAll, onNavigate }) {
+  return (
+    <div className="admin-notification-popover">
+      <div className="admin-popover-heading">
+        <div><span className="admin-eyebrow">Workspace feed</span><strong>Notifications</strong></div>
+        <button type="button" onClick={onMarkAll}>Mark all read</button>
+      </div>
+      <div className="admin-notification-list">
+        {notifications.map((item) => {
+          const Icon = item.id.startsWith("order") ? ShoppingBag : item.id.startsWith("inventory") ? Package : Users;
+          const isRead = readNotifications.includes(item.id);
+          return <button type="button" className={`admin-notification-item ${isRead ? "read" : ""}`} key={item.id} onClick={() => { onRead(item.id); onNavigate(item.section); }}>
+            <span className={`admin-activity-icon ${item.tone}`}><Icon size={14} /></span>
+            <span><strong>{item.title}</strong><small>{item.detail}</small><em>{item.time}</em></span>
+            {!isRead ? <i /> : null}
+          </button>;
+        })}
+      </div>
+      <button type="button" className="admin-popover-footer" onClick={() => onNavigate("activity")}>Open activity feed <ArrowUpRight size={14} /></button>
+    </div>
+  );
+}
+
 function Sidebar({ activeSection, setActiveSection, collapsed, setCollapsed, mobileOpen, onClose, onLogout }) {
   const closeOrCollapse = () => {
     if (mobileOpen) onClose();
     else setCollapsed(!collapsed);
   };
 
-  return <aside className={`admin-sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}><div className="admin-sidebar-top"><a className="admin-sidebar-brand" href="/"><span>A</span>{!collapsed ? <strong>AUREN <small>OPERATIONS</small></strong> : null}</a><button className="admin-sidebar-collapse" onClick={closeOrCollapse} aria-label={mobileOpen ? "Close navigation" : collapsed ? "Expand sidebar" : "Collapse sidebar"}>{mobileOpen ? <X size={17} /> : collapsed ? <PanelLeftOpen size={17} /> : <PanelLeftClose size={17} />}</button></div><div className="admin-workspace-switcher"><span className="admin-workspace-mark">A</span>{!collapsed ? <span><strong>AUREN Store</strong><small>Demo workspace</small></span> : null}<ChevronDown size={14} /></div><nav className="admin-side-nav">{!collapsed ? <span className="admin-nav-label">Workspace</span> : null}{navItems.map((item) => { const Icon = item.icon; return <button className={activeSection === item.id ? "active" : ""} key={item.id} onClick={() => { setActiveSection(item.id); onClose(); }} title={item.label}><Icon size={17} /><span>{item.label}</span>{item.count && !collapsed ? <b>{item.count}</b> : null}</button>; })}</nav><div className="admin-sidebar-bottom">{!collapsed ? <div className="admin-side-help"><Sparkles size={16} /><span><strong>Portfolio mode</strong><small>Everything is simulated</small></span></div> : null}<button className="admin-sidebar-logout" onClick={onLogout} title="Sign out"><LogOut size={17} /><span>Sign out</span></button></div></aside>;
+  return <aside className={`admin-sidebar ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}><div className="admin-sidebar-top"><a className="admin-sidebar-brand" href="/"><BrandMark size={34} className="admin-sidebar-brand-mark" />{!collapsed ? <strong>AUREN <small>OPERATIONS</small></strong> : null}</a><button className="admin-sidebar-collapse" onClick={closeOrCollapse} aria-label={mobileOpen ? "Close navigation" : collapsed ? "Expand sidebar" : "Collapse sidebar"}>{mobileOpen ? <X size={17} /> : collapsed ? <PanelLeftOpen size={17} /> : <PanelLeftClose size={17} />}</button></div><div className="admin-workspace-switcher"><BrandMark size={30} className="admin-workspace-mark" />{!collapsed ? <span><strong>AUREN Store</strong><small>Demo workspace</small></span> : null}<ChevronDown size={14} /></div><nav className="admin-side-nav">{!collapsed ? <span className="admin-nav-label">Workspace</span> : null}{navItems.map((item) => { const Icon = item.icon; return <button className={activeSection === item.id ? "active" : ""} key={item.id} onClick={() => { setActiveSection(item.id); onClose(); }} title={item.label}><Icon size={17} /><span>{item.label}</span>{item.count && !collapsed ? <b>{item.count}</b> : null}</button>; })}</nav><div className="admin-sidebar-bottom">{!collapsed ? <div className="admin-side-help"><Sparkles size={16} /><span><strong>Portfolio mode</strong><small>Everything is simulated</small></span></div> : null}<button className="admin-sidebar-logout" onClick={onLogout} title="Sign out"><LogOut size={17} /><span>Sign out</span></button></div></aside>;
 }
 
 function Dashboard({ user, onLogout }) {
@@ -393,6 +507,9 @@ function Dashboard({ user, onLogout }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [toast, setToast] = useState("");
   const [globalSearch, setGlobalSearch] = useState("");
+  const [catalog, setCatalog] = useState(readStoredCatalog);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [readNotifications, setReadNotifications] = useState([]);
 
   useEffect(() => {
     request("/api/admin/summary").then(setSummary).catch(() => setSummary(null));
@@ -404,21 +521,65 @@ function Dashboard({ user, onLogout }) {
     return () => window.clearTimeout(timer);
   }, [toast]);
 
+  useEffect(() => {
+    window.localStorage.setItem("auren-admin-products", JSON.stringify(catalog));
+  }, [catalog]);
+
   const pageTitle = navItems.find((item) => item.id === activeSection)?.label ?? "Overview";
   const setSection = (section) => {
     setActiveSection(section);
     setGlobalSearch("");
+    setNotificationsOpen(false);
   };
+  const searchResults = useMemo(() => {
+    const query = globalSearch.trim().toLowerCase();
+    if (!query) return [];
+    const orderResults = demoOrders.map((order) => ({
+      id: order.id,
+      title: order.id,
+      detail: `${order.customer} · ${order.product}`,
+      type: "Order",
+      icon: ClipboardList,
+      section: "orders",
+      order,
+    }));
+    const productResults = catalog.map((product) => ({
+      id: product.id,
+      title: product.name,
+      detail: `${product.category} · ${formatCurrency(product.price)}`,
+      type: "Product",
+      icon: Package,
+      section: "products",
+    }));
+    const activityResults = demoActivity.map((item) => ({
+      id: item.title,
+      title: item.title,
+      detail: item.detail,
+      type: "Activity",
+      icon: item.icon,
+      section: "activity",
+    }));
+    return [...orderResults, ...productResults, ...activityResults]
+      .filter((item) => `${item.title} ${item.detail}`.toLowerCase().includes(query))
+      .slice(0, 8);
+  }, [catalog, globalSearch]);
+  const unreadCount = demoNotifications.filter((item) => !readNotifications.includes(item.id)).length;
+  const handleSearchSelect = (result) => {
+    setGlobalSearch("");
+    if (result.order) setSelectedOrder(result.order);
+    setSection(result.section);
+  };
+  const addProduct = (product) => setCatalog((current) => [product, ...current]);
 
   return <div className="admin-console">
     <Sidebar activeSection={activeSection} setActiveSection={setSection} collapsed={collapsed} setCollapsed={setCollapsed} mobileOpen={mobileNavOpen} onClose={() => setMobileNavOpen(false)} onLogout={onLogout} />
     {mobileNavOpen ? <button className="admin-mobile-backdrop" onClick={() => setMobileNavOpen(false)} aria-label="Close navigation" /> : null}
     <main className="admin-console-main">
-      <header className="admin-console-topbar"><div className="admin-mobile-brand"><button aria-label="Open navigation" className="admin-mobile-menu" onClick={() => setMobileNavOpen(true)}><Menu size={18} /></button><span>AUREN</span></div><div className="admin-breadcrumb"><span>Workspace</span><ChevronRight size={14} /><strong>{pageTitle}</strong></div><div className="admin-top-actions"><label className="admin-top-search"><Search size={15} /><input value={globalSearch} onChange={(event) => setGlobalSearch(event.target.value)} placeholder="Search anything…" /></label><button className="admin-top-icon" title="Notifications"><Bell size={17} /><i /></button><a className="admin-store-link" href="/"><ExternalLink size={14} /> <span>View store</span></a><div className="admin-user-chip"><span>{user.email.slice(0, 1).toUpperCase()}</span><strong>{user.email.split("@")[0]}</strong><ChevronDown size={13} /></div></div></header>
+      <header className="admin-console-topbar"><div className="admin-mobile-brand"><button aria-label="Open navigation" className="admin-mobile-menu" onClick={() => setMobileNavOpen(true)}><Menu size={18} /></button><BrandMark size={25} /><span>AUREN</span></div><div className="admin-breadcrumb"><span>Workspace</span><ChevronRight size={14} /><strong>{pageTitle}</strong></div><div className="admin-top-actions"><div className="admin-search-wrap"><label className="admin-top-search"><Search size={15} /><input value={globalSearch} onChange={(event) => setGlobalSearch(event.target.value)} placeholder="Search anything…" aria-label="Search workspace" /></label>{globalSearch.trim() ? <SearchResults results={searchResults} onSelect={handleSearchSelect} /> : null}</div><div className="admin-notification-wrap"><button className="admin-top-icon" title="Notifications" aria-label={`Notifications, ${unreadCount} unread`} aria-expanded={notificationsOpen} onClick={() => setNotificationsOpen((open) => !open)}><Bell size={17} />{unreadCount ? <i /> : null}</button>{notificationsOpen ? <NotificationPopover notifications={demoNotifications} readNotifications={readNotifications} onRead={(id) => setReadNotifications((current) => current.includes(id) ? current : [...current, id])} onMarkAll={() => setReadNotifications(demoNotifications.map((item) => item.id))} onNavigate={setSection} /> : null}</div><a className="admin-store-link" href="/"><ExternalLink size={14} /> <span>View store</span></a><div className="admin-user-chip"><span>{user.email.slice(0, 1).toUpperCase()}</span><strong>{user.email.split("@")[0]}</strong><ChevronDown size={13} /></div></div></header>
       <div className="admin-console-content">
         {activeSection === "overview" ? <Overview summary={summary} onNavigate={setSection} onSelectOrder={setSelectedOrder} /> : null}
-        {activeSection === "orders" ? <OrdersView onSelect={setSelectedOrder} /> : null}
-        {activeSection === "products" ? <ProductsView onToast={setToast} /> : null}
+        {activeSection === "orders" ? <OrdersView onSelect={setSelectedOrder} onToast={setToast} /> : null}
+        {activeSection === "products" ? <ProductsView catalog={catalog} onAddProduct={addProduct} onToast={setToast} /> : null}
         {activeSection === "activity" ? <ActivityView /> : null}
       </div>
     </main>
@@ -449,7 +610,7 @@ export default function AdminPage() {
   }
 
   return <main className={`admin-shell ${user ? "admin-shell-console" : ""}`}>
-    {user ? null : <a className="admin-brand" href="/">AUREN <span>/ ADMIN</span></a>}
+    {user ? null : <a className="admin-brand" href="/"><BrandMark size={34} /><span className="admin-brand-copy">AUREN <small>/ ADMIN</small></span></a>}
     {user === undefined ? <div className="admin-loading">Loading workspace…</div> : user ? <Dashboard onLogout={handleLogout} user={user} /> : <LoginCard onLogin={loadSession} />}
   </main>;
 }
