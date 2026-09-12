@@ -1,22 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
   <defs>
-    <radialGradient id="surface" cx="30%" cy="12%" r="100%">
-      <stop offset="0" stop-color="#33251f"/>
-      <stop offset=".58" stop-color="#171210"/>
-      <stop offset="1" stop-color="#090909"/>
-    </radialGradient>
-    <linearGradient id="copper" x1="27" y1="23" x2="100" y2="106" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#ffd0ad"/>
-      <stop offset=".32" stop-color="#e9946d"/>
-      <stop offset=".7" stop-color="#bb603f"/>
-      <stop offset="1" stop-color="#75301f"/>
+    <linearGradient id="night" x1="10" y1="4" x2="118" y2="124" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111f39"/>
+      <stop offset=".48" stop-color="#090c18"/>
+      <stop offset="1" stop-color="#03040a"/>
     </linearGradient>
-    <linearGradient id="shine" x1="28" y1="32" x2="83" y2="91" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#fff0df"/>
-      <stop offset="1" stop-color="#d57a56"/>
+    <linearGradient id="aurora" x1="28" y1="26" x2="96" y2="101" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#69f6ff"/>
+      <stop offset=".4" stop-color="#5f9dff"/>
+      <stop offset=".74" stop-color="#9671ff"/>
+      <stop offset="1" stop-color="#e84fca"/>
     </linearGradient>
-    <filter id="softGlow" x="-35%" y="-35%" width="170%" height="170%">
-      <feGaussianBlur stdDeviation="2.4" result="blur"/>
+    <linearGradient id="copper" x1="42" y1="72" x2="88" y2="80" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffe1ae"/>
+      <stop offset=".42" stop-color="#f59b68"/>
+      <stop offset="1" stop-color="#b84e4e"/>
+    </linearGradient>
+    <filter id="glow" x="-55%" y="-55%" width="210%" height="210%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="smallGlow" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -24,19 +32,16 @@
     </filter>
   </defs>
 
-  <rect width="128" height="128" rx="34" fill="url(#surface)"/>
-  <rect x="7" y="7" width="114" height="114" rx="29" fill="none" stroke="#f5c3a1" stroke-opacity=".18" stroke-width="2"/>
+  <rect width="128" height="128" rx="32" fill="url(#night)"/>
+  <rect x="6" y="6" width="116" height="116" rx="26" fill="none" stroke="#7eefff" stroke-opacity=".2" stroke-width="2"/>
+  <circle cx="64" cy="64" r="43" fill="#4f67ff" fill-opacity=".12" filter="url(#glow)"/>
 
-  <!-- AUREN orbit: an open ring that reads as A at favicon scale -->
-  <path d="M20 48C28 25 50 13 74 16c15 2 28 9 36 20" fill="none" stroke="url(#copper)" stroke-linecap="round" stroke-width="5" opacity=".9"/>
-  <circle cx="111" cy="38" r="4.5" fill="#ffd0ad" filter="url(#softGlow)"/>
+  <!-- AUREN signature: one bold geometric A with an aurora edge -->
+  <path d="M28 98 56.4 29.9c2.6-6.2 12.6-6.2 15.2 0L100 98H82.8l-6.5-17.4H51.7L45.2 98H28Zm28.5-31h14.9L64 47.2 56.5 67Z" fill="url(#aurora)" filter="url(#glow)"/>
+  <path d="M48.5 75.8h31" stroke="url(#copper)" stroke-linecap="round" stroke-width="6"/>
+  <path d="M64 38 59.5 49.5h9L64 38Z" fill="#f7ffff" fill-opacity=".9"/>
 
-  <!-- Custom A monogram -->
-  <path d="M28 95 57.5 29c2.2-5 9.2-5 11.4 0L98 95H82.5l-6.1-15.2H50L43.5 95H28Z" fill="url(#copper)" filter="url(#softGlow)"/>
-  <path d="m63.2 46-8.7 22.1h17.4L63.2 46Z" fill="#171210"/>
-  <path d="M48.5 73.5h29" stroke="url(#shine)" stroke-linecap="round" stroke-width="4"/>
-
-  <!-- Small baseline cut for a more editorial wordmark feel -->
-  <path d="M29 105h70" stroke="#f5c3a1" stroke-linecap="round" stroke-opacity=".5" stroke-width="2"/>
-  <circle cx="22" cy="105" r="2" fill="#f5c3a1" opacity=".8"/>
+  <!-- Small signature light, kept isolated so it reads at 16px -->
+  <circle cx="103" cy="25" r="4.5" fill="#ffe3b8" filter="url(#smallGlow)"/>
+  <path d="M103 17v16M95 25h16" stroke="#ffe3b8" stroke-linecap="round" stroke-opacity=".5"/>
 </svg>
