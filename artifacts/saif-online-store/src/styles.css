@@ -1764,6 +1764,59 @@
     grid-column: 1 / -1;
   }
 
+  .admin-upload-field input[type="file"] {
+    padding: 0.55rem;
+    border-style: dashed;
+    cursor: pointer;
+  }
+
+  .admin-upload-field input[type="file"]::file-selector-button {
+    margin-right: 0.65rem;
+    border: 0;
+    border-radius: 0.45rem;
+    padding: 0.42rem 0.65rem;
+    background: color-mix(in oklab, var(--neon) 14%, transparent);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.62rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .admin-upload-name {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 0.58rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-overflow: ellipsis;
+    text-transform: none;
+    white-space: nowrap;
+  }
+
+  .admin-upload-preview {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 0.7rem;
+    background: color-mix(in oklab, var(--neon) 4%, transparent);
+  }
+
+  .admin-upload-preview img {
+    width: 3.7rem;
+    height: 3.7rem;
+    border-radius: 0.55rem;
+    object-fit: cover;
+    background: var(--bg);
+  }
+
+  .admin-upload-preview span {
+    color: var(--muted);
+    font-size: 0.62rem;
+  }
+
   .admin-field-hint {
     color: var(--muted);
     font-size: 0.55rem;
