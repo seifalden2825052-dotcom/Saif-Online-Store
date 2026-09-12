@@ -167,6 +167,20 @@
 }
 
 @layer components {
+  .brand-mark {
+    display: inline-flex;
+    width: var(--brand-mark-size);
+    height: var(--brand-mark-size);
+    flex: 0 0 var(--brand-mark-size);
+    overflow: visible;
+  }
+
+  .brand-mark svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
   .admin-shell {
     min-height: 100dvh;
     padding: 2rem clamp(1.25rem, 4vw, 4.5rem);
@@ -178,16 +192,19 @@
 
   .admin-brand {
     display: inline-flex;
-    gap: 0.55rem;
-    align-items: baseline;
+    gap: 0.7rem;
+    align-items: center;
     color: var(--ink);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.35em;
     text-decoration: none;
   }
 
-  .admin-brand span {
+  .admin-brand-copy {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+  }
+
+  .admin-brand-copy small {
     color: var(--muted);
     font-size: 0.58rem;
     letter-spacing: 0.18em;
@@ -531,17 +548,8 @@
     text-decoration: none;
   }
 
-  .admin-sidebar-brand > span {
-    display: grid;
-    width: 2rem;
-    height: 2rem;
-    flex: 0 0 2rem;
-    place-items: center;
+  .admin-sidebar-brand-mark {
     border-radius: 0.65rem;
-    background: var(--ink);
-    color: var(--bg);
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
   }
 
   .admin-sidebar-brand strong {
@@ -615,15 +623,7 @@
   }
 
   .admin-workspace-mark {
-    display: grid;
-    width: 1.9rem;
-    height: 1.9rem;
-    flex: 0 0 1.9rem;
-    place-items: center;
     border-radius: 0.55rem;
-    background: color-mix(in oklab, var(--neon) 16%, transparent);
-    color: var(--neon);
-    font-family: var(--font-serif);
   }
 
   .admin-side-nav {
@@ -759,6 +759,11 @@
     gap: 0.65rem;
   }
 
+  .admin-search-wrap,
+  .admin-notification-wrap {
+    position: relative;
+  }
+
   .admin-top-search {
     display: flex;
     width: min(15rem, 22vw);
@@ -800,6 +805,176 @@
     height: 0.32rem;
     border-radius: 50%;
     background: var(--neon);
+  }
+
+  .admin-search-results,
+  .admin-notification-popover {
+    position: absolute;
+    top: calc(100% + 0.65rem);
+    z-index: 80;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 0.9rem;
+    background: color-mix(in oklab, var(--surface) 94%, transparent);
+    box-shadow: 0 1.2rem 3rem color-mix(in oklab, var(--ink) 18%, transparent);
+    backdrop-filter: blur(18px);
+  }
+
+  .admin-search-results {
+    right: 0;
+    width: min(25rem, calc(100vw - 2rem));
+    padding: 0.35rem;
+  }
+
+  .admin-search-result {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 2rem 1fr auto;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem;
+    border: 0;
+    border-radius: 0.65rem;
+    background: transparent;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .admin-search-result:hover {
+    background: color-mix(in oklab, var(--neon) 8%, transparent);
+  }
+
+  .admin-search-result-icon {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 0.55rem;
+    background: color-mix(in oklab, var(--neon) 12%, transparent);
+    color: var(--neon);
+  }
+
+  .admin-search-result > span:nth-child(2),
+  .admin-notification-item > span:nth-child(2) {
+    display: grid;
+    min-width: 0;
+    gap: 0.18rem;
+  }
+
+  .admin-search-result strong,
+  .admin-notification-item strong {
+    overflow: hidden;
+    font-size: 0.68rem;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .admin-search-result small,
+  .admin-notification-item small {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 0.6rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .admin-search-result > svg {
+    color: var(--muted);
+  }
+
+  .admin-search-empty {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    color: var(--muted);
+    font-size: 0.68rem;
+  }
+
+  .admin-notification-popover {
+    right: 0;
+    width: min(25rem, calc(100vw - 2rem));
+  }
+
+  .admin-popover-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .admin-popover-heading > div {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .admin-popover-heading strong {
+    font-size: 0.85rem;
+  }
+
+  .admin-popover-heading button,
+  .admin-popover-footer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border: 0;
+    background: transparent;
+    color: var(--neon);
+    font-size: 0.62rem;
+    cursor: pointer;
+  }
+
+  .admin-notification-list {
+    display: grid;
+    padding: 0.35rem;
+  }
+
+  .admin-notification-item {
+    position: relative;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 2rem 1fr auto;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.7rem;
+    border: 0;
+    border-radius: 0.65rem;
+    background: transparent;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .admin-notification-item:hover,
+  .admin-notification-item.read:hover {
+    background: color-mix(in oklab, var(--neon) 7%, transparent);
+  }
+
+  .admin-notification-item.read {
+    opacity: 0.58;
+  }
+
+  .admin-notification-item em {
+    color: var(--muted);
+    font-size: 0.56rem;
+    font-style: normal;
+  }
+
+  .admin-notification-item > i {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: var(--neon);
+  }
+
+  .admin-popover-footer {
+    width: 100%;
+    justify-content: center;
+    padding: 0.75rem;
+    border-top: 1px solid var(--line);
   }
 
   .admin-store-link {
@@ -1514,6 +1689,102 @@
 
   .admin-stock.unavailable { color: #bd7865; }
   .admin-empty-state { padding: 3rem; color: var(--muted); text-align: center; font-size: 0.8rem; }
+  .admin-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: color-mix(in oklab, var(--ink) 32%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  .admin-product-modal {
+    width: min(100%, 38rem);
+    max-height: min(42rem, calc(100dvh - 2rem));
+    overflow: auto;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: 1.1rem;
+    background: var(--surface);
+    box-shadow: 0 2rem 5rem color-mix(in oklab, var(--ink) 24%, transparent);
+  }
+
+  .admin-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .admin-modal-header h2 {
+    margin: 0.3rem 0 0;
+    font-size: 2rem;
+  }
+
+  .admin-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+  }
+
+  .admin-modal-grid label {
+    display: grid;
+    gap: 0.4rem;
+    color: var(--muted);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .admin-modal-grid input,
+  .admin-modal-grid select {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 0.65rem;
+    padding: 0.75rem 0.8rem;
+    outline: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.74rem;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .admin-modal-grid input:focus,
+  .admin-modal-grid select:focus {
+    border-color: var(--neon);
+  }
+
+  .admin-modal-wide {
+    grid-column: 1 / -1;
+  }
+
+  .admin-field-hint {
+    color: var(--muted);
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: lowercase;
+  }
+
+  .admin-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+  }
+
+  .admin-modal-actions button {
+    display: inline-flex;
+    width: auto;
+    margin: 0;
+  }
+
   .admin-live-label { color: #5f8b69; }
   .admin-live-label span { background: #6d9b77; }
   .admin-full-activity { padding: 0.75rem 1.25rem; }
@@ -1672,7 +1943,8 @@
     .admin-mobile-brand { display: flex; align-items: center; gap: 0.55rem; color: var(--ink); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.3em; }
     .admin-mobile-menu { display: grid; width: 2rem; height: 2rem; }
     .admin-breadcrumb { display: none; }
-    .admin-top-search { display: none; }
+    .admin-top-actions { gap: 0.35rem; }
+    .admin-top-search { display: flex; width: 8.5rem; padding: 0.5rem 0.6rem; }
     .admin-store-link span, .admin-user-chip strong, .admin-user-chip svg { display: none; }
     .admin-store-link { padding: 0.55rem; }
     .admin-console-content { padding: 1.5rem 1rem 3rem; }
@@ -1685,6 +1957,8 @@
   }
 
   @media (max-width: 520px) {
+    .admin-top-search { width: 6.7rem; }
+    .admin-top-search input { font-size: 0.64rem; }
     .admin-welcome h1, .admin-page-heading h1 { font-size: 2.8rem; }
     .admin-stat-card { min-height: 8rem; padding: 0.9rem; }
     .admin-stat-card > strong { font-size: 1.55rem; }
@@ -1695,6 +1969,10 @@
     .admin-section-heading h2 { font-size: 1.3rem; }
     .admin-filter-pills { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.2rem; }
     .admin-filter-pills button { flex: 0 0 auto; }
+    .admin-modal-grid { grid-template-columns: 1fr; }
+    .admin-modal-wide { grid-column: auto; }
+    .admin-modal-actions { flex-direction: column-reverse; }
+    .admin-modal-actions button { width: 100%; justify-content: center; }
   }
 
   /* The storefront's light theme uses --muted as a soft surface color.
