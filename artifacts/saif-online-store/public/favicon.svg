@@ -1,24 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
   <defs>
-    <linearGradient id="surface" x1="8" y1="4" x2="57" y2="60" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#29221e"/>
-      <stop offset="1" stop-color="#0e0d0d"/>
+    <radialGradient id="surface" cx="30%" cy="12%" r="100%">
+      <stop offset="0" stop-color="#33251f"/>
+      <stop offset=".58" stop-color="#171210"/>
+      <stop offset="1" stop-color="#090909"/>
+    </radialGradient>
+    <linearGradient id="copper" x1="27" y1="23" x2="100" y2="106" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffd0ad"/>
+      <stop offset=".32" stop-color="#e9946d"/>
+      <stop offset=".7" stop-color="#bb603f"/>
+      <stop offset="1" stop-color="#75301f"/>
     </linearGradient>
-    <linearGradient id="copper" x1="18" y1="14" x2="48" y2="52" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#f0b08e"/>
-      <stop offset=".48" stop-color="#c97850"/>
-      <stop offset="1" stop-color="#9b4d34"/>
+    <linearGradient id="shine" x1="28" y1="32" x2="83" y2="91" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff0df"/>
+      <stop offset="1" stop-color="#d57a56"/>
     </linearGradient>
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+    <filter id="softGlow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="2.4" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
-  <rect width="64" height="64" rx="18" fill="url(#surface)"/>
-  <rect x="5.5" y="5.5" width="53" height="53" rx="14" fill="none" stroke="#f0b08e" stroke-opacity=".2"/>
-  <path d="M32 12 14 51h8.2l3.4-7.9h12.8l3.4 7.9H50L32 12Zm0 13.8 3.9 10.1h-7.8L32 25.8Z" fill="url(#copper)" filter="url(#glow)"/>
-  <path d="M25.6 43.1h12.8" stroke="#f6c2a1" stroke-linecap="round" stroke-opacity=".75"/>
+
+  <rect width="128" height="128" rx="34" fill="url(#surface)"/>
+  <rect x="7" y="7" width="114" height="114" rx="29" fill="none" stroke="#f5c3a1" stroke-opacity=".18" stroke-width="2"/>
+
+  <!-- AUREN orbit: an open ring that reads as A at favicon scale -->
+  <path d="M20 48C28 25 50 13 74 16c15 2 28 9 36 20" fill="none" stroke="url(#copper)" stroke-linecap="round" stroke-width="5" opacity=".9"/>
+  <circle cx="111" cy="38" r="4.5" fill="#ffd0ad" filter="url(#softGlow)"/>
+
+  <!-- Custom A monogram -->
+  <path d="M28 95 57.5 29c2.2-5 9.2-5 11.4 0L98 95H82.5l-6.1-15.2H50L43.5 95H28Z" fill="url(#copper)" filter="url(#softGlow)"/>
+  <path d="m63.2 46-8.7 22.1h17.4L63.2 46Z" fill="#171210"/>
+  <path d="M48.5 73.5h29" stroke="url(#shine)" stroke-linecap="round" stroke-width="4"/>
+
+  <!-- Small baseline cut for a more editorial wordmark feel -->
+  <path d="M29 105h70" stroke="#f5c3a1" stroke-linecap="round" stroke-opacity=".5" stroke-width="2"/>
+  <circle cx="22" cy="105" r="2" fill="#f5c3a1" opacity=".8"/>
 </svg>
