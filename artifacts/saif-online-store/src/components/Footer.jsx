@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import BrandMark from "./BrandMark";
 
 const navigation = [
   { 
@@ -25,9 +26,10 @@ export default function Footer() {
         
         <div className="grid gap-12 lg:grid-cols-[2fr_1fr_1fr]">
           <div className="max-w-sm">
-            <span className="font-serif text-2xl tracking-wide text-ink">
-              AUREN
-            </span>
+            <div className="flex items-center gap-3">
+              <BrandMark size={42} />
+              <span className="font-serif text-2xl tracking-wide text-ink">AUREN</span>
+            </div>
             <p className="mt-4 text-sm font-light leading-relaxed text-subtle">
               Engineered objects for those who value silent precision and enduring materials.
             </p>
